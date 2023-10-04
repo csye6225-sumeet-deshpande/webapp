@@ -35,7 +35,7 @@ const createAssignment = async(req, res) => {
       .catch(err => {
         res.status(400).send({
           message:
-             "Bad request"
+             err.message || "Bad request"
         });
       });
   };
@@ -290,11 +290,11 @@ const createAssignment = async(req, res) => {
           return res.status(403).send({ message: 'Unauthorized!' });
         }
       } catch (err) {
-        return res.status(400).send({ message: 'Bad Request' });
+        return res.status(400).send({ message: err.message|| 'Bad Request'  });
       }
     } catch (err) {
       console.log(err);
-      return res.status(400).send({ message: 'Bad Request' });
+      return res.status(400).send({ message: err.message || 'Bad Request' });
     }
   };
   

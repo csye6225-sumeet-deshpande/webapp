@@ -41,8 +41,14 @@ const Assignment = sequelize.define('assignments', {
                 args: true,
                 msg: 'Points cannot be an empty',
               },
-            min: 1,
-            max: 100,
+            min: {
+              args:1,
+              msg : 'points hsould be in 1 and 100'
+            },
+            max: {
+              args:100,
+              msg : 'points should be in 1 and 100'
+            },
           },
     },
     num_of_attempts : {
@@ -58,8 +64,15 @@ const Assignment = sequelize.define('assignments', {
                 args: true,
                 msg: 'Num_of_attempts cannot be an empty',
               },
-            min: 1,
-            max: 100,
+            min: {
+              args:1,
+              msg:"number should be in between 1 & 100"
+            },
+            max: {
+              args:100,
+              msg:"number should be in between 1 & 100"
+            },
+            
           },
     },
     deadline:{
