@@ -62,8 +62,28 @@ const handleError = (error, response) => {
 // }
 
 
+ const setResponseHeader = (res) => {
 
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+  
+    res.setHeader(
+  
+      "Access-Control-Allow-Headers",
+  
+      "X-Requested-With,Content-Type,Accept,Origin"
+  
+    );
+  
+    res.setHeader("Access-Control-Allow-Methods", "*");
+  
+    res.setHeader("Access-Control-Allow-Origin", "*");
+  
+    res.setHeader("Cache-Control", "no-cache");
+  
+    return res;
+  
+  };
 
-module.exports=handleError;
+module.exports={handleError,setResponseHeader};
 
 

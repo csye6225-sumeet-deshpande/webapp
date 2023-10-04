@@ -11,7 +11,7 @@ const validateRoute = (req, res, next) => {
   if (validRoutePattern.test(req.path)) {
     next();
   } else {
-    res.status(404).send({message:"Not found"});
+    return res.status(404).send({message:"Not found"});
   }
 };
 
@@ -19,7 +19,7 @@ const validateMethod = (req, res, next) => {
   if (req.method === 'GET' || req.method === 'POST' || req.method === 'PUT' || req.method === 'DELETE') {
     next();
   } else {
-    res.status(405).send({ message: 'Method Not Allowed' });
+    return res.status(405).send({ message: 'Method Not Allowed' });
   }
 };
 

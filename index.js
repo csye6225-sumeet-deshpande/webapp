@@ -15,7 +15,7 @@ app.use('/',assignmentRoutes);
 app.use('/',healthCheckRoutes);
 app.use((req, res) => {
     res.setHeader('Cache-control' ,'no-cache');
-    res.status(404).send({message:"Not found"});
+    return res.status(404).send({message:"Not found"});
   });
 
 
@@ -26,7 +26,7 @@ async function initializeDatabaseWithCSVData() {
     await Account.sequelize.sync(); // Sync the database schema
 
     // Load the CSV file
-    fs.createReadStream('./users.csv')
+    fs.createReadStream(process.env.CSVPATH )
       .pipe(csv())
       .on('data', async (row) => {
         const username = row.email;

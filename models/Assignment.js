@@ -21,7 +21,6 @@ const Assignment = sequelize.define('assignments', {
                 args: true,
                 msg: 'Name cannot be an empty string.',
               },
-              is: ["^[a-z]+$", "i"],
           },
     },
     points : {

@@ -2,7 +2,9 @@ const {handleError}=require('../utils/utils');
 const sequelize = require('../utils/config');
 const {Assignment}=require('../models/Assignment');
 const Account = require('../models/Account');
+const {setResponseHeader}=require('../utils/utils')
 const createAssignment = async(req, res) => {
+  setResponseHeader(res);
     console.log("in the assignment"+req);
    // Assignment.sequelize.sync();
     // Validate request
@@ -12,14 +14,43 @@ const createAssignment = async(req, res) => {
       },
     })
     if (!req.body) {
-      res.status(400).send({ message: 'Bad Request!' });;
-    }
-    if (typeof req.body !== 'object') {
-      res.status(400).json({ error: 'Invalid JSON in request body' });
+      return res.status(400).send({ message: 'Bad Request!' });;
     }
     else if(req.query && Object.keys(req.query).length>0){
-      res.status(400).send({ message: 'Bad Request!' });;
+      return res.status(400).send({message:"Bad request"});;
     }
+      const requiredkeys = [
+      "name",
+      "points",
+      "num_of_attempts",
+      "deadline",
+    ];
+    const allowedKeys = [
+      "name",
+      "points",
+      "num_of_attempts",
+      "deadline",
+      "assignment_created",
+      "assignment_updated",
+    ];
+    for (const key of requiredkeys) {
+      if (!(key in req.body)) {
+       return  res.status(400).send({ message: 'Bad Request!' }); 
+      }
+    }
+    // Check if there are any extra keys
+    for (const key in req.body) {
+    if (!allowedKeys.includes(key)) {
+     return  res.status(400).send({ message: 'Bad Request!' });
+    }
+  }
+    if (typeof req.body !== 'object') {
+      return res.status(400).json({ error: 'Invalid JSON in request body' });
+    }
+    else if(req.query && Object.keys(req.query).length>0){
+      return res.status(400).send({ message: 'Bad Request!' });
+    }
+   
     console.log("Userdata.id=",userdata.id);
     const assignment = {
       user_id :userdata.id,
@@ -29,14 +60,19 @@ const createAssignment = async(req, res) => {
       deadline:req.body.deadline
     };
   
-   
+    // if (assignment.user_id) {
+    //   delete assignment["dataValues"].user_id;
+    // }
     // Save Assignment in the database
     const assg =  await Assignment.create(assignment)
       .then(data => {
+        if (data["dataValues"].user_id) {
+          delete data["dataValues"].user_id;
+        }
         return res.status(201).json(data)
       })
       .catch(err => {
-        res.status(400).send({
+        return res.status(400).send({
           message:
              err.message || "Bad request"
         });
@@ -44,6 +80,7 @@ const createAssignment = async(req, res) => {
   };
 
   const getAssignment = async(req, res) => {
+    setResponseHeader(res);
     try{
       //const assignment = await Assignment.findAll();
       // const acc = await auth.parse( req.headers.authorization)
@@ -52,7 +89,7 @@ const createAssignment = async(req, res) => {
         return res.status(400).send({ message: 'Bad Request!' });
       }
       else if(req.query && Object.keys(req.query).length>0){
-        res.status(400).send({ message: 'Bad Request!' });;
+        return res.status(400).send({ message: 'Bad Request!' });;
       }
       const account=await Account.findOne({
         where: {
@@ -88,6 +125,7 @@ const createAssignment = async(req, res) => {
 
 
   const getAssignmentById = async(req, res) => {
+    setResponseHeader(res);
     try{
      // const assignment = await Assignment.findAll();
      console.log("Acooubnt tb",req.params.id);
@@ -97,7 +135,7 @@ const createAssignment = async(req, res) => {
         return res.status(400).send({message:"Bad request"});
       }
       else if(req.query && Object.keys(req.query).length>0){
-        res.status(400).send({message:"Bad request"});;
+        return res.status(400).send({message:"Bad request"});;
       }
       console.log("account:");
       const validDocID = /^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(
@@ -117,6 +155,9 @@ const createAssignment = async(req, res) => {
           id: req.params.id,
         }
       })
+      if(assignment===null){
+        return res.status(404).send({ message: 'Not found' });
+      }
       console.log("assig-----nment",assignment);
       // if(assignment[dataValues] && assignment && assignment[dataValues].user_id)
       //   delete assignment["dataValues"].user_id;
@@ -155,6 +196,14 @@ const createAssignment = async(req, res) => {
 
 
   const deleteAssignment = async(req, res) => {
+    setResponseHeader(res);
+    if(req.body && Object.keys(req.body).length>0)
+      {
+        return res.status(400).send({message:"Bad request"});
+      }
+      else if(req.query && Object.keys(req.query).length>0){
+        return res.status(400).send({message:"Bad request"});;
+      }
     try {
       const userData = await Account.findOne({
         where: {
@@ -257,6 +306,14 @@ const createAssignment = async(req, res) => {
     
   // };
   const updateAssignment = async (req, res) => {
+    setResponseHeader(res);
+    if (Object.keys(req.body).length === 0) 
+      {
+        return res.status(400).send({message:"Bad request"});
+      }
+      else if(req.query && Object.keys(req.query).length>0){
+        return res.status(400).send({message:"Bad request"});
+      }
     try {
       const userData = await Account.findOne({
         where: {
@@ -264,6 +321,26 @@ const createAssignment = async(req, res) => {
         },
       });
       const { id } = userData;
+      const requiredkeys = [
+        "name",
+        "points",
+        "num_of_attempts",
+        "deadline",
+      ];
+      const allowedKeys = [
+        "name",
+        "points",
+        "num_of_attempts",
+        "deadline",
+        "assignment_created",
+        "assignment_updated",
+      ];
+      // Check if there are any extra keys
+      for (const key in req.body) {
+      if (!allowedKeys.includes(key)) {
+       return  res.status(400).send({ message: 'Bad Request!' });
+      }
+    }
   
       const validDocID = /^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(
         req.params.id
@@ -302,7 +379,7 @@ const createAssignment = async(req, res) => {
         if (id === assignment.user_id) {
           // Update only the fields provided in the request body
           await assignment.update(updatedFields);
-          res.status(204).send();
+          return res.status(204).send();
         } else {
           return res.status(403).send({ message: 'Forbidden!' });
         }
