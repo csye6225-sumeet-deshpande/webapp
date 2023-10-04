@@ -15,6 +15,16 @@ const validateRoute = (req, res, next) => {
   }
 };
 
+const validateMethod = (req, res, next) => {
+  if (req.method === 'GET' || req.method === 'POST' || req.method === 'PUT' || req.method === 'DELETE') {
+    next();
+  } else {
+    res.status(405).send({ message: 'Method Not Allowed' });
+  }
+};
+
+router.all('/v1/assignments*', validateMethod);
+
 
 //clearrouter.get('/v1/assignments',assignmentController.createAssignment);
 router.route('/v1/assignments').get(authorizeToken,assignmentController.getAssignment);

@@ -21,11 +21,7 @@ const Assignment = sequelize.define('assignments', {
                 args: true,
                 msg: 'Name cannot be an empty string.',
               },
-            isString(value) {
-              if (typeof value !== 'string' && value.length>0) {
-                throw new Error('Name must be a string.');
-              }
-            },
+              is: ["^[a-z]+$", "i"],
           },
     },
     points : {
@@ -66,11 +62,11 @@ const Assignment = sequelize.define('assignments', {
               },
             min: {
               args:1,
-              msg:"number should be in between 1 & 100"
+              msg:"Num_of_attempts should be in between 1 & 100"
             },
             max: {
               args:100,
-              msg:"number should be in between 1 & 100"
+              msg:"Num_of_attempts should be in between 1 & 100"
             },
             
           },

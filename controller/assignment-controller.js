@@ -17,6 +17,9 @@ const createAssignment = async(req, res) => {
     if (typeof req.body !== 'object') {
       res.status(400).json({ error: 'Invalid JSON in request body' });
     }
+    else if(req.query && Object.keys(req.query).length>0){
+      res.status(400).send({ message: 'Bad Request!' });;
+    }
     console.log("Userdata.id=",userdata.id);
     const assignment = {
       user_id :userdata.id,
@@ -75,7 +78,7 @@ const createAssignment = async(req, res) => {
 
   
     if(result.length===0) return res.status(200).send({ message: 'No assignment for user' });
-    return res.status(201).json(result)
+    return res.status(200).json(result)
     }catch(e){
       console.log(e);
       return res.status(400).send({ message: 'Bad Request!!' })
@@ -91,12 +94,18 @@ const createAssignment = async(req, res) => {
        //const acc = await auth.parse( req.headers.authorization)
       if(req.body && Object.keys(req.body).length>0)
       {
-        return res.status(400).send("Bad requestt");
+        return res.status(400).send({message:"Bad request"});
       }
       else if(req.query && Object.keys(req.query).length>0){
-        res.status(400).send("Bad requestt");;
+        res.status(400).send({message:"Bad request"});;
       }
       console.log("account:");
+      const validDocID = /^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(
+        req.params.id
+      );
+      if (!validDocID) {
+        return res.status(400).send({ message: 'Check the Assignment ID' });
+      }
       const account=await Account.findOne({
         where: {
           email: global.email,
@@ -108,10 +117,17 @@ const createAssignment = async(req, res) => {
           id: req.params.id,
         }
       })
-      console.log("assignmrnt",assignment);
-      if (assignment.length === 0) return res.status(200).send("No assignment for user")
-      return res.status(201).json(assignment)
-      console("assignment:",assignment);
+      console.log("assig-----nment",assignment);
+      // if(assignment[dataValues] && assignment && assignment[dataValues].user_id)
+      //   delete assignment["dataValues"].user_id;
+      if (assignment["dataValues"].user_id) {
+        delete assignment["dataValues"].user_id;
+      }
+      // const assignmnetdata= assignment.json();
+      // delete assignmnetdata.user_id;
+      //console.log(assignmnetdata);
+      if (assignment.length === 0) return res.status(200).send({message:"No assignment for user"})
+      return res.status(200).json(assignment)
       //const filteredAssignmentsuserid = assignment.filter((asg) => account.id === asg.user_id ) ;
       //const filteredAssignments=filteredAssignmentsuserid.filter((asg)=> asg.id===req.param.id);
     //   const result = assignment.map((ac) => {
@@ -130,7 +146,8 @@ const createAssignment = async(req, res) => {
     // if(result.length===0) return res.status(200).send("No assignment for user");
     // return res.status(201).json(result)
     }catch(e){
-      return res.status(400).send({ message: 'Bad Request' })
+      console.log("ErROR===",e);
+      return res.status(400).send({ message: 'Bad Request!!' })
     }
     
     
@@ -151,7 +168,7 @@ const createAssignment = async(req, res) => {
         )
         console.log(validDocID);
       if (!validDocID)
-        return res.status(403).send({ message: 'check the Assignment ID' })
+        return res.status(400).send({ message: 'check the Assignment ID' })
       const assignment = await Assignment.findOne({
         where: {
           id: req.params.id,
@@ -166,10 +183,10 @@ const createAssignment = async(req, res) => {
         if (id === user_id) {
           await assignment.destroy()
         } else {
-          return res.status(401).send({ message: 'Unauthorized!' })
+          return res.status(403).send({ message: 'Forbidden' })
         }
       } catch (err) {
-        return res.status(500).send({ message: 'Internal server error!' })
+        return res.status(400).send({ message: 'Bad  request!' })
       }
       return res.status(204).send()
     } catch (err) {
@@ -287,7 +304,7 @@ const createAssignment = async(req, res) => {
           await assignment.update(updatedFields);
           res.status(204).send();
         } else {
-          return res.status(403).send({ message: 'Unauthorized!' });
+          return res.status(403).send({ message: 'Forbidden!' });
         }
       } catch (err) {
         return res.status(400).send({ message: err.message|| 'Bad Request'  });

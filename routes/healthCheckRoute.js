@@ -1,6 +1,6 @@
 const express=require('express');
 const router =express.Router();
 const healthCheckController=require('../controller/healthCheckController');
-router.get('/healthz', healthCheckController);
+router.use('/healthz', healthCheckController);
 
 module.exports = router;
