@@ -7,7 +7,7 @@ This repo contains code for webapp as a part of csye6225
 Before you begin, ensure you have met the following requirements:
 - Git 2.x or higher
 - NPM 8.x or higher
-- NodeJs 16.x or higher.
+- NodeJs 16.x or higher
 
  
 
