@@ -32,7 +32,7 @@ jobs:
 
           echo PGUSER=${{ secrets.PGUSER }} >> .env
 
-          echo PGPASSWORD=${{ secrets.PGPASSWORD }} >> .env
+          #echo PGPASSWORD=${{ secrets.PGPASSWORD }} >> .env
 
           echo PGPORT=${{ secrets.PGPORT }} >> .env
 
