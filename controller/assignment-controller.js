@@ -142,7 +142,7 @@ const createAssignment = async(req, res) => {
         req.params.id
       );
       if (!validDocID) {
-        return res.status(400).send({ message: 'Check the Assignment ID' });
+        return res.status(404).send({ message: 'Check the Assignment ID' });
       }
       const account=await Account.findOne({
         where: {
@@ -217,7 +217,7 @@ const createAssignment = async(req, res) => {
         )
         console.log(validDocID);
       if (!validDocID)
-        return res.status(400).send({ message: 'check the Assignment ID' })
+        return res.status(404).send({ message: 'check the Assignment ID' })
       const assignment = await Assignment.findOne({
         where: {
           id: req.params.id,
@@ -335,6 +335,11 @@ const createAssignment = async(req, res) => {
         "assignment_created",
         "assignment_updated",
       ];
+      for (const key of requiredkeys) {
+        if (!(key in req.body)) {
+         return  res.status(400).send({ message: 'Bad Request!' }); 
+        }
+      }
       // Check if there are any extra keys
       for (const key in req.body) {
       if (!allowedKeys.includes(key)) {
@@ -346,7 +351,7 @@ const createAssignment = async(req, res) => {
         req.params.id
       );
       if (!validDocID) {
-        return res.status(400).send({ message: 'Check the Assignment ID' });
+        return res.status(404).send({ message: 'Check the Assignment ID' });
       }
   
       const assignment = await Assignment.findOne({
