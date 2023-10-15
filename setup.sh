@@ -25,6 +25,7 @@ echo "+-------------------------------------------------------------------------
 
 ls 
 
-mkdir web
-unzip webapp.zip -d web
-npm i
+mkdir web1
+unzip webapp.zip -d web1
+cd web1
+npm install
