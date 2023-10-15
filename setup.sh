@@ -17,9 +17,12 @@ sudo apt install -y npm
 
 # Check Node.js version
 nodejs -v
+echo "+-----------------------------------------------------------------------------------------------------------------------------------------+"
+echo "|                                                                                                                                         |"
+echo "|                                                    printing value                                                   |"
+echo "|                                                                                                                                         |"
+echo "+-----------------------------------------------------------------------------------------------------------------------------------------+"
 
+ls 
 
-sudo mkdir webapp
-sudo cp /tmp/webapp.zip /home/admin/webapp/webapp.zip
-cd /home/admin/webapp/
-unzip webapp.zip
+unzip webapp.zip 
