@@ -25,4 +25,6 @@ echo "+-------------------------------------------------------------------------
 
 ls 
 
-unzip webapp.zip 
+mkdir web
+unzip webapp.zip -d web
+npm i
