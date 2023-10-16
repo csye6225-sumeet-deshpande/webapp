@@ -19,8 +19,37 @@ jobs:
       - name: Checkout code
 
         uses: actions/checkout@v2
+
+
+       - name: Create env file
+        run: |
+
+          touch .env
+
+          echo PGDATABASE=${{ secrets.PGDATABASE }} >> .env
+
+          echo PGUSER=${{ secrets.PGUSER }} >> .env
+
+          echo PGPASSWORD=${{ secrets.PGPASSWORD }} >> .env
+
+          echo PGPORT=${{ secrets.PGPORT }} >> .env
+
+          echo PGHOST=${{ secrets.PGHOST }} >> .env
+
+          echo "cat .env"
+
+          cat .env
+
+          echo "ls -a ."
+
+          ls -a .
+
+          echo "ls -a ${{ github.workspace }}"
+
+          ls -a ${{ github.workspace }}
+
       
-      - name: Step 2 - zip all the webapp files
+      - name:  zip all the webapp files
         run: |
           zip -r webapp.zip ./
           pwd ./webapp
@@ -30,7 +59,7 @@ jobs:
 
         run: |
 
-          PACKER_VERSION="1.9.4"  # specify your desired version
+          PACKER_VERSION="1.9.4"  
 
           wget https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip
 
