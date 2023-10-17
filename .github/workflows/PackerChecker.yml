@@ -48,7 +48,7 @@ jobs:
 
       - name: Packer formatter
 
-        run: packer format .
+        run: packer fmt .
 
  
 
