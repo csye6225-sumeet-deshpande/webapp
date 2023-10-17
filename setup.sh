@@ -25,7 +25,8 @@ echo "+-------------------------------------------------------------------------
 
 ls 
 
-ALTER USER postgres WITH PASSWORD 'Kothrud@2021';
+echo "alter postgres user password"
+sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'Kothrud@2021';"
 
 sudo mkdir web1
 sudo unzip webapp.zip -d web1
