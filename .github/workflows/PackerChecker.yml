@@ -46,6 +46,10 @@ jobs:
 
         run: packer init ami.pkr.hcl
 
+      - name: Packer formatter
+
+        run: packer format .
+
  
 
       - name: Validate Packer Template
