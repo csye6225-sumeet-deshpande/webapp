@@ -44,7 +44,6 @@ jobs:
 
           echo "${{ github.AWS_REGION }}"
 
-          ls -a ${{ github.workspace }}
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -53,3 +52,5 @@ jobs:
         run: npm install
       - name: Run Integration Tests
         run: npm test
+             echo "!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@${{ github.AWS_REGION }}"
+             echo "!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@${{ var.AWS_REGION }}"
