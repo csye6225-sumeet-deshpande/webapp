@@ -36,7 +36,7 @@ jobs:
 
           echo PGHOST=${{ secrets.PGHOST }} >> .env
 
-          echo CSVPATH="./users.csv" >> .env
+          echo CSVPATH=${{ secrets.CSVPATH }} >> .env
 
           echo "cat .env"
 

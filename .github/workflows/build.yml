@@ -38,6 +38,8 @@ jobs:
 
           echo PGHOST=${{ secrets.PGHOST }} >> .env
 
+          echo CSVPATH=${{ secrets.CSVPATH }} >> .env
+
           echo "cat .env"
 
           cat .env

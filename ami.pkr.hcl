@@ -32,14 +32,28 @@ variable "instance_type" {
   default = "t2.micro"
 }
 
+variable "os_name" {
+  type    = string
+  default = "debian-12-amd64-*"
+}
+
+variable "os_root_type" {
+  type    = string
+  default = "ebs"
+}
+
+variable "os_vr" {
+  type    = string
+  default = "hvm"
+}
 
 source "amazon-ebs" "debian" {
   ami_name = "Ami_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
   source_ami_filter {
     filters = {
-      name                = "debian-12-amd64-*"
-      root-device-type    = "ebs"
-      virtualization-type = "hvm"
+      name                = "${var.os_name}"
+      root-device-type    = "${var.os_root_type}"
+      virtualization-type = "${var.os_vr}"
     }
     most_recent = true
     owners      = ["amazon"]
@@ -62,7 +76,7 @@ build {
   provisioner "file" {
     source      = "webapp.zip"
     destination = "~/webapp.zip"
-         }
+  }
 
   provisioner "shell" {
     scripts = [
