@@ -47,6 +47,16 @@ variable "os_vr" {
   default = "hvm"
 }
 
+variable "dev_id"{
+  type=string
+  default="730146561444"
+}
+
+variable "demo_id"{
+  type=string
+  default="933464024683"
+}
+
 source "amazon-ebs" "debian" {
   ami_name = "Ami_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
   source_ami_filter {
