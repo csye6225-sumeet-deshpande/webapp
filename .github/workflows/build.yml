@@ -42,15 +42,7 @@ jobs:
 
           echo "cat .env"
 
-          cat .env
-
-          echo "ls -a ."
-
-          ls -a .
-
-          echo "ls -a ${{ github.workspace }}"
-
-          echo "ls -a ${{ github.AWS_REGION }}"
+          echo "${{ github.AWS_REGION }}"
 
           ls -a ${{ github.workspace }}
       - name: Set up Node.js

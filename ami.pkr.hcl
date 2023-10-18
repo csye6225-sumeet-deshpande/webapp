@@ -47,14 +47,14 @@ variable "os_vr" {
   default = "hvm"
 }
 
-variable "dev_id"{
-  type=string
-  default="730146561444"
+variable "dev_id" {
+  type    = string
+  default = "730146561444"
 }
 
-variable "demo_id"{
-  type=string
-  default="933464024683"
+variable "demo_id" {
+  type    = string
+  default = "933464024683"
 }
 
 source "amazon-ebs" "debian" {
