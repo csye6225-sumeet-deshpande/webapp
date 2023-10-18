@@ -52,9 +52,9 @@ variable "dev_id" {
   default = "730146561444"
 }
 
-varibale "demo_id"{
-  type=string
-  default=933464024683
+varibale "demo_id" {
+  type    = string
+  default = 933464024683
 }
 
 variable "device_name" {
@@ -93,7 +93,7 @@ source "amazon-ebs" "debian" {
     "${var.dev_id}",
     "${var.demo_id}",
   ]
-   launch_block_device_mappings {
+  launch_block_device_mappings {
     delete_on_termination = true
     device_name           = "${var.device_name}"
     volume_size           = "${var.volume_size}"
