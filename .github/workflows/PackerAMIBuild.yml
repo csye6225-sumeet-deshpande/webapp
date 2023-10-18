@@ -45,15 +45,6 @@ jobs:
 
           echo "cat .env"
 
-          cat .env
-
-          echo "ls -a ."
-
-          ls -a .
-
-          echo "ls -a ${{ github.workspace }}"
-
-          ls -a ${{ github.workspace }}
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -126,6 +117,20 @@ jobs:
           sudo mv packer /usr/local/bin/
 
           packer --version
+          
+      - name: Packer variables
+        run: |
+          touch ami.pkrvars.hcl
+          echo aws_region=\"${{ vars.aws_region }}\" >> ami.pkrvars.hcl
+          echo source_ami=\"${{ vars.source_ami }}\" >> ami.pkrvars.hcl
+          echo ssh_username=\"${{ vars.ssh_username }}\" >> ami.pkrvars.hcl
+          echo aws_profile=\"${{ vars.aws_profile }}\" >> ami.pkrvars.hcl
+          echo instance_type=\"${{ vars.instance_type }}\" >> ami.pkrvars.hcl
+          echo os_name=\"${{ vars.os_name }}\" >> ami.pkrvars.hcl
+          echo os_root_type=\"${{ vars.os_root_type }}\" >> ami.pkrvars.hcl
+          echo os_vr=\"${{ vars.os_vr }}\" >> ami.pkrvars.hcl
+          echo dev_id=\"${{ vars.dev_id}}\" >> ami.pkrvars.hcl
+          echo demo_id=\"${{ vars.demo_id}}\" >> ami.pkrvars.hcl
 
       - name: Initialize Packer
 
@@ -141,4 +146,4 @@ jobs:
 
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-        run: packer build ami.pkr.hcl
+        run: packer build --var-file=ami.pkrvars.hcl ami.pkr.hcl
