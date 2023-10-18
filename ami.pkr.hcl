@@ -54,7 +54,7 @@ variable "dev_id" {
 
 variable "demo_id" {
   type    = string
-  default = 933464024683
+  default = "933464024683"
 }
 
 variable "device_name" {
