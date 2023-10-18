@@ -32,3 +32,4 @@ sudo mkdir webapp
 sudo unzip webapp.zip -d webapp
 cd webapp
 sudo npm install
+sudo apt-get remove -y git
