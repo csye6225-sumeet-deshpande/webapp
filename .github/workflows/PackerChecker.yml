@@ -32,7 +32,7 @@ jobs:
 
         run: |
 
-          PACKER_VERSION="1.9.4"  # specify your desired version
+          PACKER_VERSION="1.9.4"  
 
           wget https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip
 

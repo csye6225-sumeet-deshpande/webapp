@@ -52,10 +52,27 @@ variable "dev_id" {
   default = "730146561444"
 }
 
-variable "demo_id" {
-  type    = string
-  default = "933464024683"
+varibale "demo_id"{
+  type=string
+  default=933464024683
 }
+
+variable "device_name" {
+  type    = string
+  default = "/dev/xvda"
+}
+
+variable "volume_size" {
+  type    = string
+  default = "8"
+}
+
+variable "volume_type" {
+  type    = string
+  default = "gp2"
+}
+
+
 
 source "amazon-ebs" "debian" {
   ami_name = "Ami_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
@@ -73,9 +90,15 @@ source "amazon-ebs" "debian" {
   profile       = "${var.aws_profile}"
   ssh_username  = "${var.ssh_username}"
   ami_users = [
-    "730146561444",
-    "933464024683",
+    "${var.dev_id}",
+    "${var.demo_id}",
   ]
+   launch_block_device_mappings {
+    delete_on_termination = true
+    device_name           = "${var.device_name}"
+    volume_size           = "${var.volume_size}"
+    volume_type           = "${var.volume_type}"
+  }
 }
 
 build {
