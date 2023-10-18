@@ -52,7 +52,7 @@ variable "dev_id" {
   default = "730146561444"
 }
 
-varibale "demo_id" {
+variable "demo_id" {
   type    = string
   default = 933464024683
 }
@@ -64,7 +64,7 @@ variable "device_name" {
 
 variable "volume_size" {
   type    = string
-  default = "8"
+  default = "25"
 }
 
 variable "volume_type" {
