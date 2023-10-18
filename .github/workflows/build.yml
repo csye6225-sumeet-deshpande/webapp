@@ -52,5 +52,6 @@ jobs:
         run: npm install
       - name: Run Integration Tests
         run: npm test
-             echo "!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@${{ github.AWS_REGION }}"
-             echo "!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@${{ var.AWS_REGION }}"
+        
+      - name: Use AWS Region
+        run: echo "AWS Region is $AWS_REGION"
