@@ -54,5 +54,5 @@ jobs:
         run: npm test
 
       - name: Use AWS Region
-        run: echo "AWS Region is ${var.AWS_REGION}"
-        
+        run: echo "AWS Region is ${{vars.AWS_REGION}}"
+
