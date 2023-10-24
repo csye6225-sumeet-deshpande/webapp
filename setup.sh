@@ -33,3 +33,33 @@ sudo unzip webapp.zip -d webapp
 cd webapp
 sudo npm install
 sudo apt-get remove -y git
+
+
+
+# Create a non-admin user
+sudo useradd -m sumeet
+sudo groupadd webappgroup
+ 
+# Add sumeet and admin to the webappgroup
+sudo usermod -aG webappgroup sumeet
+sudo usermod -aG webappgroup admin
+ 
+# Set ownership and permissions for sumeet's home directory
+sudo chown -R sumeet:webappgroup /home/sumeet
+sudo chmod -R 750 /home/sumeet
+ 
+# Set ownership and permissions for the app.js file in admin's directory
+sudo chown sumeet:webappgroup /home/admin/demo/app.js
+sudo chmod 750 /home/admin/demo/app.js
+ 
+# Add sumeet to the systemd-journal group
+sudo usermod -aG systemd-journal sumeet
+ 
+sudo chmod 644 /home/admin/demo/.env
+ 
+# Create the log file and set ownership and permissions
+sudo touch /var/log/webapp.log
+sudo chown sumeet:webappgroup /var/log/webapp.log
+sudo chmod 644 /var/log/webapp.log
+ 
+sudo chmod 600 /home/admin/demo/.env

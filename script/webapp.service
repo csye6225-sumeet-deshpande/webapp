@@ -5,8 +5,8 @@ After=network.target
 
 [Service]
 Type=simple
-User=admin
-ExecStart=/usr/bin/node /home/admin/webapp/index.js
+User=sumeet
+ExecStart=/usr/bin/node /home/sumeet/webapp/index.js
 EnvironmentFile=/home/admin/webapp/.env
 Restart=on-failure
 
