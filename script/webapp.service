@@ -11,4 +11,4 @@ EnvironmentFile=/home/admin/webapp/.env
 Restart=on-failure
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=cloud-init.target
