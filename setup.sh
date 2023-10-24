@@ -49,17 +49,17 @@ sudo chown -R sumeet:webappgroup /home/sumeet
 sudo chmod -R 750 /home/sumeet
  
 # Set ownership and permissions for the app.js file in admin's directory
-sudo chown sumeet:webappgroup /home/admin/demo/app.js
-sudo chmod 750 /home/admin/demo/app.js
+sudo chown sumeet:webappgroup /home/admin/webapp/app.js
+sudo chmod 750 /home/admin/webapp/app.js
  
 # Add sumeet to the systemd-journal group
 sudo usermod -aG systemd-journal sumeet
  
-sudo chmod 644 /home/admin/demo/.env
+sudo chmod 644 /home/admin/webapp/.env
  
 # Create the log file and set ownership and permissions
 sudo touch /var/log/webapp.log
 sudo chown sumeet:webappgroup /var/log/webapp.log
 sudo chmod 644 /var/log/webapp.log
  
-sudo chmod 600 /home/admin/demo/.env
+sudo chmod 600 /home/admin/webapp/.env
