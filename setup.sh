@@ -48,9 +48,9 @@ sudo usermod -aG webappgroup admin
 sudo chown -R sumeet:webappgroup /home/sumeet
 sudo chmod -R 750 /home/sumeet
  
-# Set ownership and permissions for the app.js file in admin's directory
-sudo chown sumeet:webappgroup /home/admin/webapp/app.js
-sudo chmod 750 /home/admin/webapp/app.js
+
+sudo chown sumeet:webappgroup /home/admin/webapp/index.js
+sudo chmod 750 /home/admin/webapp/index.js
  
 # Add sumeet to the systemd-journal group
 sudo usermod -aG systemd-journal sumeet
