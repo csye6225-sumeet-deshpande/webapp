@@ -68,7 +68,7 @@
 sudo cp /tmp/webapp.zip /opt/webapp.zip
  
 sudo groupadd csye6225
-sudo useradd -s /bin/false -g csye6225 -d /opt/csye6225 -m csye6225
+sudo useradd -s /bin/false -g csye6225 -d /opt/webapp -m csye6225
 sudo apt update
 sudo apt upgrade -y
 sudo apt install -y nodejs npm
@@ -76,8 +76,9 @@ node -v
 sudo apt-get install -y zip unzip
  
 cd /opt
-sudo unzip webapp.zip -d csye6225
-cd csye6225
+sudo mkdir webapp
+sudo unzip webapp.zip -d webapp
+cd /webapp
 sudo ls -la
 sudo npm i
  

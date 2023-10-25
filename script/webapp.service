@@ -4,11 +4,11 @@ After=network.target
  
 [Service]
 Type=simple
-WorkingDirectory=/opt/csye6225
+WorkingDirectory=/opt/webapp
 User=csye6225
 Group=csye6225
-ExecStart=/usr/bin/node /opt/csye6225/index.js
-EnvironmentFile=/opt/csye6225/.env
+ExecStart=/usr/bin/node /opt/webapp/index.js
+EnvironmentFile=/opt/webapp/.env
 Restart=always
  
 [Install]
