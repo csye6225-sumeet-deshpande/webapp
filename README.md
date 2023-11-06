@@ -12,7 +12,7 @@ Before you begin, ensure you have met the following requirements:
  
 
 ## Getting Started
-These instructions will help you set up and deploy the web applications
+These instruction will help you set up and deploy the web applications
 
  
 
