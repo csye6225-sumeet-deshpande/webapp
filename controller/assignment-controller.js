@@ -5,8 +5,8 @@ const Account = require('../models/Account');
 const {setResponseHeader,logger}=require('../utils/utils')
 const statsd = require('node-statsd')
 const client = new statsd({
-  host: 'localhost',
-  port: 8125,
+  host: process.env.stathost || 'localhost',
+  port: process.env.statport || 8125,
 })
 const createAssignment = async(req, res) => {
   setResponseHeader(res);
