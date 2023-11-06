@@ -8,7 +8,11 @@ const client = new statsd({
 const checkHealthEndpoint=(req, res) =>{
   res.setHeader('Cache-control', 'no-cache');
   console.log(req.method);
-  client.increment('endpoint.health')
+ client.increment('endpoint.health')
+  client.increment('endpoint.health', 1, 1, [], function (err, bytes) {
+    console.log('called back', err, bytes);
+    client.socket.close();
+  });
   logger.info("Received GET: /healthz");
   if( req.body && Object.keys(req.body).length>0){
     return res.status(400).send({"message":"bad request"})
