@@ -11,15 +11,15 @@ const checkHealthEndpoint=(req, res) =>{
  client.increment('endpoint.health')
   logger.info("Received GET: /healthz");
   if( req.body && Object.keys(req.body).length>0){
-    logger.warn("Bad request for GET /healthz");
+    logger.error("Bad request for GET /healthz");
     return res.status(400).send({"message":"bad request"})
   }
   else if(req.query && Object.keys(req.query).length>0){
-    logger.warn("Bad request for GET /healthz");
+    logger.error("Bad request for GET /healthz");
     return res.status(400).send({"message":"bad request"});
   }
   else if(req.method !=='GET'){
-    logger.warn("Method not allowed for /healthz");
+    logger.error("Method not allowed for /healthz");
     res.setHeader('Cache-control' ,'no-cache');
     return res.status(405).send({"message":"method not allowed"});
   }
