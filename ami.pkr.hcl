@@ -7,10 +7,6 @@
 //   }
 // }
 
-variable "aws_region" {
-  type    = string
-  default = "us-east-1"
-}
 
 variable "source_ami" {
   type    = string
@@ -139,8 +135,8 @@ build {
       "script/aws-cli-setup.sh"
     ]
     environment_vars = [
-  "AWS_ACCESS_KEY_ID=${var.AWS_ACCESS_KEY_ID}",
-    "AWS_SECRET_ACCESS_KEY=${var.AWS_SECRET_ACCESS_KEY}",
+      "AWS_ACCESS_KEY_ID=${var.AWS_ACCESS_KEY_ID}",
+      "AWS_SECRET_ACCESS_KEY=${var.AWS_SECRET_ACCESS_KEY}",
     ]
   }
 }
