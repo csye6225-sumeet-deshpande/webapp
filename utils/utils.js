@@ -65,7 +65,7 @@ const handleError = (error, response) => {
 //     }
 
 // }
-AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: 'dev' });
+AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: process.env.PROFILE });
 const sns = new SNS({
     region: process.env.AWS_REGION || 'us-east-1',
   })
