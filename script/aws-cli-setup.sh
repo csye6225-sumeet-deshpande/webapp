@@ -6,3 +6,4 @@ aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY" --profile dev
 aws configure set region "us-east-1" --profile dev
 
 sudo cp .aws /opt/csye6225/
+chown -R csye6225:csye6225 /opt/csye6225/.aws/credentials

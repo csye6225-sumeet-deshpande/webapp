@@ -128,6 +128,6 @@ build {
       "AWS_SECRET_ACCESS_KEY={{ secrets.AWS_SECRET_ACCESS_KEY }}",
     ]
   }
-  }
 }
+
 
