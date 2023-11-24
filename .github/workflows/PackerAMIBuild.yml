@@ -134,9 +134,16 @@ jobs:
           echo AWS_ACCESS_KEY_ID=\"${{ vars.AWS_ACCESS_KEY_ID}}\" >> ami.pkrvars.hcl
           echo AWS_SECRET_ACCESS_KEY=\"${{ vars.AWS_SECRET_ACCESS_KEY}}\" >> ami.pkrvars.hcl
 
+
       - name: Initialize Packer
 
         run: packer init ami.pkr.hcl
+      
+      - name: check values
+        run: |
+             echo "${{ vars.AWS_ACCESS_KEY_ID }}"
+             echo "${{ vars.AWS_SECRET_ACCESS_KEY}}"
+
 
  
 

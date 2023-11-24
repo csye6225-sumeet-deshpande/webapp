@@ -68,6 +68,11 @@ jobs:
 
         run: packer validate -evaluate-datasources --var-file=ami.pkrvars.hcl ami.pkr.hcl
 
+      - name: check values
+        run: |
+             echo "${{ vars.AWS_ACCESS_KEY_ID }}"
+             echo "${{ vars.AWS_SECRET_ACCESS_KEY}}"
+
  
 
       - name: Check Packer Formatting
