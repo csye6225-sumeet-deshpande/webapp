@@ -123,6 +123,11 @@ build {
       "script/systemd_install.sh",
       "script/aws-cli-setup.sh"
     ]
+    environment_vars = [
+      "AWS_ACCESS_KEY_ID={{ secrets.AWS_ACCESS_KEY_ID }}",
+      "AWS_SECRET_ACCESS_KEY={{ secrets.AWS_SECRET_ACCESS_KEY }}",
+    ]
+  }
   }
 }
 
