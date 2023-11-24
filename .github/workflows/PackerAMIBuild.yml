@@ -131,6 +131,8 @@ jobs:
           echo os_vr=\"${{ vars.os_vr }}\" >> ami.pkrvars.hcl
           echo dev_id=\"${{ vars.dev_id}}\" >> ami.pkrvars.hcl
           echo demo_id=\"${{ vars.demo_id}}\" >> ami.pkrvars.hcl
+          echo AWS_ACCESS_KEY_ID=\"${{ vars.AWS_ACCESS_KEY_ID}}\" >> ami.pkrvars.hcl
+          echo AWS_SECRET_ACCESS_KEY=\"${{ vars.AWS_SECRET_ACCESS_KEY}}\" >> ami.pkrvars.hcl
 
       - name: Initialize Packer
 

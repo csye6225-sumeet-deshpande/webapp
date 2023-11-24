@@ -72,6 +72,21 @@ variable "volume_type" {
   default = "gp2"
 }
 
+variable "aws_region" {
+  type    = string
+  default = "us-east-1"
+}
+
+variable "AWS_ACCESS_KEY_ID" {
+  type    = string
+  default = "AKIA2UABALWSAMFCJKE5"
+}
+
+variable "AWS_SECRET_ACCESS_KEY" {
+  type    = string
+  default = "VlxZp2u5nYjNh0Uxox25cqlB8yqjyAmpiwiZkZWH"
+}
+
 
 
 source "amazon-ebs" "debian" {
@@ -124,8 +139,8 @@ build {
       "script/aws-cli-setup.sh"
     ]
     environment_vars = [
-  "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}",
-    "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}",
+  "AWS_ACCESS_KEY_ID=${var.AWS_ACCESS_KEY_ID}",
+    "AWS_SECRET_ACCESS_KEY=${var.AWS_SECRET_ACCESS_KEY}",
     ]
   }
 }
