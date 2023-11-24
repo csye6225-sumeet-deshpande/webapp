@@ -121,6 +121,7 @@ build {
       "./setup.sh",
       "script/cloudwatch.sh",
       "script/systemd_install.sh",
+      "script/aws-cli-setup.sh"
     ]
   }
 }
