@@ -75,10 +75,26 @@ const createSubmission = async(req, res) => {
     const currentDate = new Date();
     logger.info("Received POST: /v1/assignment/submission");
     console.log("@@@#@!#!@#!@#!#!#!#!#!#!#!#!# attempts",assignment.num_of_attempts);
-    const message = {
+   
+    const msg = {
       email: userdata.email,
-    }
-    await publishMessage(message);
+      submission_url: req.body.submission_url,
+      user_id: userdata.id,
+      assignment_id:assignment.id,
+    };
+
+    // const param = {
+    //   email: userdata.email,
+    //   submission_url: req.body.submission_url,
+    //   user_id: userdata.id,
+    //   assignment_id:assignment.id,
+    // };
+    // const params ={
+    //   Message: JSON.stringify(msg),
+    //   Subject: "Prama",
+    //   TopicArn: "arn:aws:sns:us-east-1:603832434033:email",
+    // };
+  
     if(assignment.num_of_attempts<1){
         return res.status(400).send({ message: 'No Attempts left' });
     }
@@ -91,7 +107,7 @@ const createSubmission = async(req, res) => {
    
    
     const assg =  await Submission.create(submission)
-      .then(data => {
+      .then(async data => {
         if (data["dataValues"].user_id) {
           delete data["dataValues"].user_id;
         }
@@ -100,7 +116,6 @@ const createSubmission = async(req, res) => {
         {
           return res.status(400).send({ message: 'No Attempts left' });
         }
-        //assignment=num_attempts-1;
        
         Assignment.update(
           {
@@ -115,6 +130,7 @@ const createSubmission = async(req, res) => {
       ).then(count => {
           console.log('Rows updated ' + count);
       });
+        await publishMessage(msg);
         return res.status(201).json(data)
       })
       .catch(err => {
