@@ -4,6 +4,7 @@ const {Assignment}=require('../models/Assignment');
 const Account = require('../models/Account');
 const {Submission}= require('../models/Submission');
 const {setResponseHeader,logger,publishMessage}=require('../utils/utils')
+const url = require('url');
 
 
 const createSubmission = async(req, res) => {
@@ -81,17 +82,6 @@ const createSubmission = async(req, res) => {
       assignment_id:assignment.id,
     };
 
-    // const param = {
-    //   email: userdata.email,
-    //   submission_url: req.body.submission_url,
-    //   user_id: userdata.id,
-    //   assignment_id:assignment.id,
-    // };
-    // const params ={
-    //   Message: JSON.stringify(msg),
-    //   Subject: "Prama",
-    //   TopicArn: "arn:aws:sns:us-east-1:603832434033:email",
-    // };
   
     const existingSubmissions = await Submission.count({
       where: {
@@ -101,6 +91,10 @@ const createSubmission = async(req, res) => {
     });
 
     console.log("E@#@#@!$@$R@#R@!$RR$@!$R#FR#ETEQFWFGWGG",existingSubmissions, assignment.num_of_attempts);
+
+    if(!isValidURL(req.body.submission_url)){
+      return res.status(400).send({ message: 'Check Submission' });
+    }
 
     if(existingSubmissions >= assignment.num_of_attempts){
         return res.status(400).send({ message: 'No Attempts left' });
@@ -128,19 +122,6 @@ const createSubmission = async(req, res) => {
           return res.status(400).send({ message: 'No Attempts left' });
         }
        
-      //   Assignment.update(
-      //     {
-      //       num_of_attempts:num_attempts-1
-      //     },
-      //     { // Clause
-      //         where: 
-      //         {
-      //             id: req.params.id
-      //         }
-      //     }
-      // ).then(count => {
-      //     console.log('Rows updated ' + count);
-      // });
        
       
       
@@ -155,6 +136,14 @@ const createSubmission = async(req, res) => {
       });
   };
 
-  
+ 
+const isValidURL = (inputURL) => {
+  try {
+      const parsedURL = new URL(inputURL);
+      return parsedURL.protocol === 'http:' || parsedURL.protocol === 'https:' && parsedURL.pathname.toLowerCase().endsWith('.zip');
+  } catch (error) {
+      return false;
+  }
+}
 
   module.exports={createSubmission};

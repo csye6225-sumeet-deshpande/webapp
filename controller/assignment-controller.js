@@ -405,7 +405,14 @@ const createAssignment = async(req, res) => {
       if (!assignment) {
         return res.status(404).send({ message: 'Not Found!' });
       }
-
+      const existingSubmissions = await Submission.count({
+        where: {
+          assignment_id: assignment.id,
+        },
+      });
+      if(existingSubmissions >0){
+          return res.status(400).send({ message: 'There are submission against assignment' });
+      }
       if(req.body.num_of_attempts < 1 ){
         return res.status(400).send({ message: 'num_of_attempts should be greater or equal to 1' });
       }
