@@ -132,7 +132,6 @@ build {
       "./setup.sh",
       "script/cloudwatch.sh",
       "script/systemd_install.sh",
-      "script/aws-cli-setup.sh"
     ]
     environment_vars = [
       "AWS_ACCESS_KEY_ID=${var.AWS_ACCESS_KEY_ID}",
