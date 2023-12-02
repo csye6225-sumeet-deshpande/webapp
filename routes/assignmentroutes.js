@@ -33,30 +33,30 @@ const validateMethod1 = (req, res, next) => {
   }
 };
 
-router.all('/v1/assignments/:id/submission', validateMethod1);
+router.all('/v2/assignments/:id/submission', validateMethod1);
 
-router.all('/v1/assignments*', validateMethod);
+router.all('/v2/assignments*', validateMethod);
 
 
 
 //clearrouter.get('/v1/assignments',assignmentController.createAssignment);
-router.route('/v1/assignments').get(authorizeToken,assignmentController.getAssignment);
+router.route('/v2/assignments').get(authorizeToken,assignmentController.getAssignment);
 
 //By ID
-router.route('/v1/assignments/:id').get(authorizeToken,assignmentController.getAssignmentById);
+router.route('/v2/assignments/:id').get(authorizeToken,assignmentController.getAssignmentById);
 
 //POST method##
-router.route('/v1/assignments').post(authorizeToken,assignmentController.createAssignment);
+router.route('/v2/assignments').post(authorizeToken,assignmentController.createAssignment);
  
 //Delete routes
 
-router.route('/v1/assignments/:id').delete(authorizeToken,assignmentController.deleteAssignment);
+router.route('/v2/assignments/:id').delete(authorizeToken,assignmentController.deleteAssignment);
 
 // Update 
 
-router.route('/v1/assignments/:id').put(authorizeToken,assignmentController.updateAssignment)
+router.route('/v2/assignments/:id').put(authorizeToken,assignmentController.updateAssignment)
 
-router.route('/v1/assignments/:id/submission').post(authorizeToken,submissionController.createSubmission);
+router.route('/v2/assignments/:id/submission').post(authorizeToken,submissionController.createSubmission);
 
 // router.put('/assignments/:id', assignmentController.updateAssignment);
 // router.delete('/assignments/:id', assignmentController.deleteAssignment);
