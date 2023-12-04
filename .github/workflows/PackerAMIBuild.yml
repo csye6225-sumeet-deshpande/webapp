@@ -2,7 +2,7 @@ name: Build AMI after PR is merged
 
  
 on:
-  pull_request:
+  push:
     branches:
       - main
 jobs:
@@ -62,6 +62,7 @@ jobs:
  
 
     steps:
+
       - name: Checkout code
 
         uses: actions/checkout@v2
@@ -156,21 +157,21 @@ jobs:
 
         run: packer build --var-file=ami.pkrvars.hcl ami.pkr.hcl
 
-      - name: Configure AWS credentials for DEMO account
+       - name: Configure AWS credentials for DEMO account
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEMO }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEMO }}
           aws-region: us-east-1
       
-      - name: Update AWS Launch Template Config and Refresh Instances
+       - name: Update AWS Launch Template Config and Refresh Instances
         run: |
 
           # Install jq to parse JSON data and map it to the shell variable
           sudo apt-get install jq
 
-          ASG_NAME="asg_launch_config"
-          LAUNCH_CONFIG="asg_launch_config"
+          ASG_NAME=${{ secrets.ASG_NAME }}
+          LAUNCH_CONFIG=${{ secrets.LAUNCH_CONFIG }}
 
           IMAGE=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d':' -f2)
 
