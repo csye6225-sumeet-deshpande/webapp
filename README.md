@@ -26,10 +26,12 @@ These instruction will help you set up and deploy the web applications
 
 ### Application contains the following endpoint
 - GET /healthz - To check the health of the webapps
-- POST /v1/assignments - To create a new assignments
-- GET /v1/assignments - To receive all assignments information
-- GET /v1/assignments/:id - To receive assignment information
-- PUT /v1/assignments/:id - To update assignment information
-- DELETE /v1/assignments/:id - To delete assignment information
+- POST /v2/assignments - To create a new assignments
+- GET /v2/assignments - To receive all assignments information
+- GET /v2/assignments/:id - To receive assignment information
+- PUT /v2/assignments/:id - To update assignment information
+- DELETE /v2/assignments/:id - To delete assignment information
 
-### Added lambda and users
+### Added Script 
+
+- aws acm import-certificate --certificate file://Certificate.pem --certificate-chain file://CertificateChain.pem --private-key file://PrivateKey.pem --profile demo
